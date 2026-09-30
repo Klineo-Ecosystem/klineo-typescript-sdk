@@ -26,8 +26,8 @@
     },
     {
       "path": "CHANGELOG.md",
-      "bytes": 515,
-      "sha256": "624831470b560d94884daad4a670b2086fada2631f631c2f917d64e3042725a6"
+      "bytes": 922,
+      "sha256": "1a20ac9affcd3368970eb52aebf729a851652f063f0116f2affee7a3f211f4e4"
     },
     {
       "path": "LICENSE.txt",
@@ -36,8 +36,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 9755,
-      "sha256": "0a5f917f76cc92c9c8369cabe41e5166a3c95cc8f4c9ad5cd14c2ebdc6ac38a2"
+      "bytes": 10289,
+      "sha256": "d247db46882f2afa11ac054c4584ed39b2f09ef32b498583397f462104e0d762"
     },
     {
       "path": "examples/list-scores.mjs",
@@ -47,17 +47,17 @@
     {
       "path": "package-lock.json",
       "bytes": 816,
-      "sha256": "9fcc3c229e7e3a3beda4f4150c358aa5f4fd709d29730fecf33ae6742017bfa5"
+      "sha256": "19dd23ba9cb3f5032c7ed5dc3c518ec5687ebde04cde5fcd744e98227701844c"
     },
     {
       "path": "package.json",
       "bytes": 1261,
-      "sha256": "f308e9698eb01c3837be950a4229165de556087e2898bdc6864761a3c5c2b4f9"
+      "sha256": "a22d7d292c867e4c92e98730efddde5f465c32b33c123fb2e018569c20fa41ee"
     },
     {
       "path": "src/index.ts",
-      "bytes": 408845,
-      "sha256": "c575d2552c7e552773e235f6590484ec25a7a3ac4fa21e800a2049d5299262eb"
+      "bytes": 410702,
+      "sha256": "36250db16ca71e622b7d58cf7cf9e1f1fd89e42bbce0b39a08efe9ffa9a14d40"
     },
     {
       "path": "test/client.test.mjs",
@@ -70,5 +70,5 @@
       "sha256": "7c8fcd2249a627230c0c268210114bd0b11818d523102a146d558d2c9cadbcf2"
     }
   ],
-  "sha256": "21d8b330c4e73c879bf60f50d71d5d0d72f16354c3ffadccb77c6d0da6268ca5"
+  "sha256": "fa813455b6718b0a5f62ca8f88fb59e897264ea2fdd9a35e7b57311b500ff93c"
 }

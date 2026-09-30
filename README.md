@@ -2,6 +2,8 @@
 
 TypeScript and JavaScript ESM client for the KlineO Liquidity Operating System v2 API. The generated client includes every operation in the v2 OpenAPI contract and exports named request, result, and domain types. It has no runtime dependencies or dependencies on the KlineO application workspace.
 
+SDK version: `2.1.0`. API contract version: `2.0.0`.
+
 Source is available for review. All rights are reserved; public availability is not an open-source license or a grant of usage rights. Obtain permission from Klineo-Ecosystem before using the software. See [LICENSE.txt](LICENSE.txt).
 
 ## Build and install
@@ -11,13 +13,13 @@ Use Node.js 22.18 or newer and npm. Builds produce JavaScript, TypeScript declar
 After obtaining usage permission:
 
 ```sh
-git clone https://github.com/Klineo-Ecosystem/klineo-typescript-sdk.git
+git clone --branch v2.1.0 https://github.com/Klineo-Ecosystem/klineo-typescript-sdk.git
 cd klineo-typescript-sdk
 npm ci
 npm run check
 npm pack
 # In your own application, install the resulting local package:
-npm install /absolute/path/to/klineo-typescript-sdk/klineo-liquidity-os-sdk-2.0.0.tgz
+npm install /absolute/path/to/klineo-typescript-sdk/klineo-liquidity-os-sdk-2.1.0.tgz
 ```
 
 `npm ci` runs the build automatically. `npm pack` checks the package and produces a distributable `.tgz`; the built library, generated sources, readme, changelog, and license are included. CommonJS applications can load the ESM package with `await import('@klineo/liquidity-os-sdk')`.
@@ -89,6 +91,8 @@ const partnerSession = new LiquidityOsClient({
 ```
 
 Partner changes use `updatePartnerConfiguration` with the exact current configuration `ifMatch`. Read `getPartnerConsentOptions` before granting issuer consent and copy both configuration hashes into the grant body. Updating a partner generation requires issuer consent to be reviewed and regranted. Use the actual consent record ID returned by the service when reading or revoking consent. `getPartnerPreparationContext` provides the current consent resource version for packet preparation; issuer inbox import or decline uses the current consent version as `ifMatch`. Preparation creates an issuer inbox packet by default. Set `requestExternalDelivery: true` only after explicitly choosing external delivery and checking the context's `externalDeliveryAvailable`. Imported packets still require the issuer's ordinary approval process.
+
+SDK 2.1.0 adds `getPartnerPreparationReceiptRecovery` and the `PartnerPreparationReceipt` / `PartnerPreparationReceiptRecovery` types. Recovery is a session-authorized read for the original actor: supply the partner ID, issuer organization ID and original preparation `idempotencyKey`. An `ACCEPTED` result includes the verified committed receipt; `UNRESOLVED` does not establish that a fresh preparation is safe. Recovery does not submit or retry a preparation.
 
 ## Mutations and exact resource versions
 

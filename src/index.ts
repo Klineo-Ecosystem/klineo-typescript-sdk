@@ -387,6 +387,10 @@ export type PartnerConsentOptions = { "partnerId": string; "partnerOrganizationI
 
 export type PartnerPreparationContext = { "partnerId": string; "issuerOrganizationId": string; "partnerConfigurationResourceVersion": Hash; "partnerConfigurationArtifactHash": Hash; "consentId": string; "consentResourceVersion": Hash; "consentArtifactHash": Hash; "consentExpiresAt": string | null; "proposalPreparationAllowed": true; "externalDeliveryAvailable": boolean; };
 
+export type PartnerPreparationReceipt = { "preparationEventId": string; "preparationHash": Hash; "proposalId": string; "partnerId": string; "partnerOrganizationId": string; "partnerActorId": string; "issuerOrganizationId": string; "consentId": string; "consentResourceVersion": Hash; "consentArtifactHash": Hash; "partnerConfigurationResourceVersion": Hash; "partnerConfigurationArtifactHash": Hash; "deliveryJobId": string | null; "issuerImportAndStandardApprovalRequired": true; "executionAuthorityGranted": false; "safeAuthorityGranted": false; "custodyAuthorityGranted": false; };
+
+export type PartnerPreparationReceiptRecovery = { "state": "ACCEPTED"; "receipt": PartnerPreparationReceipt; } | { "state": "UNRESOLVED"; };
+
 export type PartnerPreparationInboxEntry = { "eventId": string; "consentId": string; "partnerId": string; "partnerOrganizationId": string; "partnerActorId": string; "createdAt": string; "preparationHash": Hash; "proposal": ProposalWorkspace | null; "consentResourceVersion": Hash; "consentArtifactHash": Hash; "status": "PENDING" | "IMPORTED" | "DECLINED" | "UNAVAILABLE"; "unavailableReason": string | null; "importedProposalId": string | null; "executionAuthorityGranted": false; };
 
 export type PartnerPreparationDecisionResult = { "decision": OperatingSystemEvent; "proposal": RecordEnvelope & { "payload": ProposalWorkspace; [key: string]: JsonValue | undefined; } | null; "issuerReviewRequired": boolean; "executionAuthorityGranted": false; };
@@ -397,7 +401,7 @@ export type PartnerDomainDnsRecord = { "type": "TXT" | "CNAME"; "name": string; 
 
 export type PartnerCustomHostname = { "id": string; "hostnameStatus": string; "sslStatus": string; "validationRecords": Array<PartnerDomainDnsRecord>; };
 
-export type PartnerDomainChallenge = { "id": string; "organizationId": string; "partnerId": string; "domain": string; "createdBy": string; "createdAt": string; "expiresAt": string; "version": number; "challengeHash": Hash; "dns": PartnerDomainDnsRecord; "state": "PENDING" | "VERIFIED" | "REVOKED"; "verification": { "domain": string; "providerId": string; "providerKeyResourceVersion": Hash; "providerAttestationHash": Hash; "challengeHash": Hash; "observedAt": string; "validUntil": string; "signature": string; } | null; "customHostname": PartnerCustomHostname | null; };
+export type PartnerDomainChallenge = { "id": string; "organizationId": string; "partnerId": string; "domain": string; "createdBy": string; "createdAt": string; "expiresAt": string; "version": number; "challengeHash": Hash; "dns": PartnerDomainDnsRecord; "state": "PENDING" | "VERIFIED" | "REVOKED"; "verification": { "domain": string; "providerId": string; "providerKeyResourceVersion": Hash; "providerAttestationHash": Hash; "challengeHash": Hash; "observedAt": string; "validUntil": string; "signature": string; } | null; "customHostname": PartnerCustomHostname | null; "provisioningOperation"?: { "id": string; "startedAt": string; } | null; };
 
 export type PartnerDomainStatus = { "challenge": PartnerDomainChallenge; "ownershipVerified": boolean; "customHostname": PartnerCustomHostname | null; "cnameTarget": string | null; "dnsPointsToTarget": boolean; "httpsReady": boolean; "checkedAt": string; "provisioning": "CLOUDFLARE_FOR_SAAS" | "OPERATOR_MANAGED"; };
 
@@ -653,13 +657,13 @@ export type RemoveVirtualsProjectReceipt = { "virtualsProjectId": number; "resou
 
 export type TreasuryLedgerVersionPage = { "items": Array<{ "id": string; "organizationId": string; "recordType": OperatingSystemRecordType; "version": number; "status": OperatingSystemRecordStatus; "payload": TreasuryBucket; "artifactHash": Hash; "evidenceHashes": Array<Hash>; "createdBy": string; "reason": string; "requestId": string; "createdAt": string; "updatedAt": string; "supersedesVersion"?: number; "resourceVersion": Hash; }>; "nextCursor": string | null; };
 
-export type ProposalReviewDecisionEvent = { "organizationId": string; "eventId": string; "recordType": "PROPOSAL_WORKSPACE"; "recordId": string; "eventKind": "PROPOSAL_INTERNAL_DECISION"; "payload": { "actorId": string; "actorRole": string; "decidedAt": string; "proposalPacketHash": Hash; "decision": "APPROVE"; "evidenceHash": Hash; } | { "actorId": string; "actorRole": string; "decidedAt": string; "proposalPacketHash": Hash; "decision": "REJECT"; "rejectionReason": string; "evidenceHash"?: Hash; }; "artifactHash": Hash; "createdBy": string; "actorRole": string; "reason": string; "requestId": string; "createdAt": string; };
+export type ProposalReviewDecisionEvent = { "organizationId": string; "eventId": string; "recordType": "PROPOSAL_WORKSPACE"; "recordId": string; "eventKind": "PROPOSAL_INTERNAL_DECISION"; "payload": { "actorId": string; "actorRole": string; "decidedAt": string; "proposalPacketHash": Hash; "decision": "APPROVE"; "evidenceHash": string; } | { "actorId": string; "actorRole": string; "decidedAt": string; "proposalPacketHash": Hash; "decision": "REJECT"; "rejectionReason": string; "evidenceHash"?: string; }; "artifactHash": Hash; "createdBy": string; "actorRole": string; "reason": string; "requestId": string; "createdAt": string; };
 
 export type ProposalReviewCommentEvent = { "organizationId": string; "eventId": string; "recordType": "PROPOSAL_WORKSPACE"; "recordId": string; "eventKind": "COMMENT_APPENDED"; "payload": { "id": string; "proposalWorkspaceId": string; "authorId": string; "body": string; "mentions": Array<string>; "supersedesCommentId"?: string; "supersedesCommentArtifactHash"?: Hash; }; "artifactHash": Hash; "createdBy": string; "actorRole": string; "reason": string; "requestId": string; "createdAt": string; };
 
 export type ProposalReviewSafeSubmissionEvent = { "organizationId": string; "eventId": string; "recordType": "PROPOSAL_WORKSPACE"; "recordId": string; "eventKind": "PROPOSAL_SAFE_SUBMISSION_VERIFIED"; "payload": { "schemaVersion": "proposal-safe-submission-evidence-v1"; "proposalId": string; "proposalPacketHash": Hash; "chainId": 677 | 968; "safeAddress": Address; "target": Address; "value": "0"; "operation": 0; "calldata": string; "calldataHash": Hash; "decodedControllerExecution": ControllerExecutionBindingV2; "decodedControllerExecutionHash": Hash; "transactionHash": Hash; "safeTransactionHash": Hash; "finalizedBlockNumber": string; "finalizedBlockHash": Hash; "finalizedAt": string; "finalityDepth": number; "receiptStatus": 1; "executionResult": { "schemaVersion": "canonical-evm-execution-result-v1"; "executionSucceeded": true; "returnDataHash": Hash; "logsHash": Hash; "stateDeltaHash": Hash; }; "executionResultHash": Hash; "finalityEvidenceHash": Hash; "reconciliationBlockNumber": string; "reconciliationBlockHash": Hash; "reconciledAt": string; "reconciliationStatus": "MATCHED"; "reconciliationEvidenceHash": Hash; "safeVerificationId": string; "safeVerificationEvidenceHash": Hash; "signedReleaseDigest"?: Hash; "vaultId": string; "vaultDeploymentProvenanceHash": Hash; "vaultDeploymentBlockHash": Hash; "venueId": string; "venueResourceVersion": Hash; "venueArtifactHash": Hash; "callerSuppliedTransactionHashAccepted": false; "executionPerformedByRoute": false; "checkedAt": string; }; "artifactHash": Hash; "createdBy": string; "actorRole": string; "reason": string; "requestId": string; "createdAt": string; };
 
-export type ProposalWorkspaceReview = { "schemaVersion": "proposal-review-view-v1"; "proposal": { "id": string; "organizationId": string; "recordType": OperatingSystemRecordType; "version": number; "status": OperatingSystemRecordStatus; "payload": ProposalWorkspace; "artifactHash": Hash; "evidenceHashes": Array<Hash>; "createdBy": string; "reason": string; "requestId": string; "createdAt": string; "updatedAt": string; "supersedesVersion"?: number; "resourceVersion": Hash; }; "proposalPacketHash": Hash; "reviewEvidenceHash": Hash; "observedAt": string; "approvals": Array<{ "actorId": string; "decidedAt": string; "evidenceHash": Hash; }>; "approvalProgress": { "approved": number; "required": number; }; "decisions": Array<ProposalReviewDecisionEvent>; "comments": Array<ProposalReviewCommentEvent>; "safeSubmissions": Array<ProposalReviewSafeSubmissionEvent>; "viewer": { "actorId": string; "role": string; "hasApproved": boolean; "mayComment": boolean; "mayApprove": boolean; "mayReject": boolean; }; "executionAuthorityGranted": false; };
+export type ProposalWorkspaceReview = { "schemaVersion": "proposal-review-view-v1"; "proposal": { "id": string; "organizationId": string; "recordType": OperatingSystemRecordType; "version": number; "status": OperatingSystemRecordStatus; "payload": ProposalWorkspace; "artifactHash": Hash; "evidenceHashes": Array<Hash>; "createdBy": string; "reason": string; "requestId": string; "createdAt": string; "updatedAt": string; "supersedesVersion"?: number; "resourceVersion": Hash; }; "proposalPacketHash": Hash; "reviewEvidenceHash": Hash; "observedAt": string; "approvals": Array<{ "actorId": string; "decidedAt": string; "evidenceHash": string; }>; "approvalProgress": { "approved": number; "required": number; }; "decisions": Array<ProposalReviewDecisionEvent>; "comments": Array<ProposalReviewCommentEvent>; "safeSubmissions": Array<ProposalReviewSafeSubmissionEvent>; "viewer": { "actorId": string; "role": string; "hasApproved": boolean; "mayComment": boolean; "mayApprove": boolean; "mayReject": boolean; }; "executionAuthorityGranted": false; };
 
 export type WorkflowRequestError = { "error": { "message": string; }; };
 
@@ -1550,6 +1554,11 @@ export type GetPartnerPreparationContextQuery = { "issuerOrganizationId": string
 export type GetPartnerPreparationContextResult = { "data": PartnerPreparationContext; };
 export interface GetPartnerPreparationContextInput { path: GetPartnerPreparationContextPath; query: GetPartnerPreparationContextQuery; signal?: AbortSignal; }
 
+export type GetPartnerPreparationReceiptRecoveryPath = { "partnerId": string; };
+export type GetPartnerPreparationReceiptRecoveryQuery = { "issuerOrganizationId": string; };
+export type GetPartnerPreparationReceiptRecoveryResult = { "data": PartnerPreparationReceiptRecovery; };
+export interface GetPartnerPreparationReceiptRecoveryInput { path: GetPartnerPreparationReceiptRecoveryPath; query: GetPartnerPreparationReceiptRecoveryQuery; idempotencyKey: string; signal?: AbortSignal; }
+
 export type ListPartnerPreparationsResult = { "data": Array<PartnerPreparationInboxEntry>; };
 export interface ListPartnerPreparationsInput { signal?: AbortSignal; }
 
@@ -1568,8 +1577,9 @@ export type GetPartnerPreparationStatusQuery = { "issuerOrganizationId": string;
 export type GetPartnerPreparationStatusResult = { "data": PartnerPreparationStatus; };
 export interface GetPartnerPreparationStatusInput { path: GetPartnerPreparationStatusPath; query: GetPartnerPreparationStatusQuery; signal?: AbortSignal; }
 
+export type ListPartnerDomainChallengesQuery = { "partnerId"?: string; "beforeChallengeId"?: string; };
 export type ListPartnerDomainChallengesResult = { "data": Array<PartnerDomainChallenge>; };
-export interface ListPartnerDomainChallengesInput { signal?: AbortSignal; }
+export interface ListPartnerDomainChallengesInput { query?: ListPartnerDomainChallengesQuery; signal?: AbortSignal; }
 
 export type CreatePartnerDomainChallengeBody = PartnerDomainChallengeCreateRequest;
 export type CreatePartnerDomainChallengeResult = { "data": PartnerDomainChallenge; };
@@ -2750,6 +2760,11 @@ export class LiquidityOsClient {
   /** Read the exact current actor-scoped consent for preparing an issuer packet */
   getPartnerPreparationContext(input: GetPartnerPreparationContextInput): Promise<GetPartnerPreparationContextResult> {
     return this.request<GetPartnerPreparationContextResult>("GET", "/partner-preparation-contexts/{partnerId}", input, undefined, "application/json");
+  }
+
+  /** Recover the initiating partner actor's durable preparation receipt using its original operation key */
+  getPartnerPreparationReceiptRecovery(input: GetPartnerPreparationReceiptRecoveryInput): Promise<GetPartnerPreparationReceiptRecoveryResult> {
+    return this.request<GetPartnerPreparationReceiptRecoveryResult>("GET", "/partner-preparation-receipts/{partnerId}", input, undefined, "application/json");
   }
 
   /** Read consent-bound partner packets awaiting or completed in issuer review */
