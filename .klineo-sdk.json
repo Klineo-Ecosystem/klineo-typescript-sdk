@@ -1,0 +1,74 @@
+{
+  "schema": "klineo-sdk-export-v1",
+  "language": "typescript",
+  "repository": "Klineo-Ecosystem/klineo-typescript-sdk",
+  "source": "packages/liquidity-api/sdk/typescript",
+  "files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "bytes": 410,
+      "sha256": "20202477774f63172db4cddf9c61cc6e5e995435b7e46162661db908fbdde2d6"
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "bytes": 855,
+      "sha256": "15862b2629f204dadcf0b7eec50d2a042dab32271c2877fc35c52d47743de1cd"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 52,
+      "sha256": "df0eb6ee1ae84676a3ab96d0e0224c1a1fabb170cd7c64e392a30e6658461609"
+    },
+    {
+      "path": ".npmignore",
+      "bytes": 51,
+      "sha256": "1a674f2ddff2147d36458ba97c4b9e37c4838c6bf1b991ffe4d3c711c2381de8"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "bytes": 515,
+      "sha256": "624831470b560d94884daad4a670b2086fada2631f631c2f917d64e3042725a6"
+    },
+    {
+      "path": "LICENSE.txt",
+      "bytes": 324,
+      "sha256": "bac9d328e9c881c7fb5f1adceec622cb1c32f744fd7a82eb0ee60a7832ff5cfa"
+    },
+    {
+      "path": "README.md",
+      "bytes": 9755,
+      "sha256": "0a5f917f76cc92c9c8369cabe41e5166a3c95cc8f4c9ad5cd14c2ebdc6ac38a2"
+    },
+    {
+      "path": "examples/list-scores.mjs",
+      "bytes": 1099,
+      "sha256": "cd145dde71641a503b72a1544445dc0314749015d8d0d6d2e677734283959c1c"
+    },
+    {
+      "path": "package-lock.json",
+      "bytes": 816,
+      "sha256": "9fcc3c229e7e3a3beda4f4150c358aa5f4fd709d29730fecf33ae6742017bfa5"
+    },
+    {
+      "path": "package.json",
+      "bytes": 1261,
+      "sha256": "f308e9698eb01c3837be950a4229165de556087e2898bdc6864761a3c5c2b4f9"
+    },
+    {
+      "path": "src/index.ts",
+      "bytes": 408845,
+      "sha256": "c575d2552c7e552773e235f6590484ec25a7a3ac4fa21e800a2049d5299262eb"
+    },
+    {
+      "path": "test/client.test.mjs",
+      "bytes": 7836,
+      "sha256": "f598f47fd0cae48bde6a28deeaddc027b2bead717a0f59d5b6d73f9f42abea23"
+    },
+    {
+      "path": "tsconfig.json",
+      "bytes": 404,
+      "sha256": "7c8fcd2249a627230c0c268210114bd0b11818d523102a146d558d2c9cadbcf2"
+    }
+  ],
+  "sha256": "21d8b330c4e73c879bf60f50d71d5d0d72f16354c3ffadccb77c6d0da6268ca5"
+}

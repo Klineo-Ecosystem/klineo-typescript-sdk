@@ -1,0 +1,36 @@
+{
+  "name": "@klineo/liquidity-os-sdk",
+  "version": "2.0.0",
+  "description": "Typed TypeScript and JavaScript client for the KlineO Liquidity Operating System v2 API",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "src", "README.md", "CHANGELOG.md", "LICENSE.txt"],
+  "sideEffects": false,
+  "engines": { "node": ">=22.18" },
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Klineo-Ecosystem/klineo-typescript-sdk.git"
+  },
+  "homepage": "https://docs.klineo.io/sdks/typescript",
+  "bugs": { "url": "https://github.com/Klineo-Ecosystem/klineo-typescript-sdk/issues" },
+  "keywords": ["klineo", "liquidity", "sdk", "typescript", "javascript"],
+  "publishConfig": { "access": "public" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test test/*.test.mjs",
+    "check": "npm run typecheck && npm test",
+    "prepare": "npm run build",
+    "prepack": "npm run check"
+  },
+  "devDependencies": { "typescript": "5.9.2" }
+}
